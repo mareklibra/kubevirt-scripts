@@ -33,7 +33,6 @@ git fetch --all
 git checkout -b upgradeComponents.${VERSION} -t remotes/upstream/${WEB_UI_BRANCH}
 
 cd kubevirt
-# TODO: improve "yarn upgrade" bellow to set exact version
 yarn upgrade -P web-ui-components -E ${VERSION}
 git add package.json yarn.lock && git commit -m "Upgrade web-ui-components to ${VERSION}"
 git push --set-upstream origin upgradeComponents.${VERSION}
