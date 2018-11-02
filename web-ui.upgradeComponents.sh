@@ -30,10 +30,10 @@ git clone ${WEB_UI_GIT} ${WEB_UI_ROOT}
 cd ${WEB_UI_ROOT}
 git remote add upstream https://github.com/kubevirt/web-ui.git
 git fetch --all
-git checkout -b upgradeComponents.${VERSION} -t remotes/upstream/${WEB_UI_BRANCH}
+git checkout -b upgradeComponents.${VERSION}.${WEB_UI_BRANCH} -t remotes/upstream/${WEB_UI_BRANCH}
 
 cd kubevirt
 yarn upgrade -P web-ui-components -E ${VERSION}
 git add package.json yarn.lock && git commit -m "Upgrade web-ui-components to ${VERSION}"
-git push --set-upstream origin upgradeComponents.${VERSION}
+git push --set-upstream origin upgradeComponents.${VERSION}.${WEB_UI_BRANCH}
 

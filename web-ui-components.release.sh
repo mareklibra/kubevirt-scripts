@@ -17,6 +17,7 @@ export WEB_UI_BRANCH="${3:-master}"
 function usage {
   echo $0 [VERSION] [[WEB_UI_COMPONENTS_BRANCH]] [[WEB_UI_BRANCH]]
   echo example: $0 0.1.5 master master
+  echo example: $0 0.1.5 master web-ui-v1.3
 }
 
 if [ x${VERSION} = x ] ; then
@@ -24,8 +25,6 @@ if [ x${VERSION} = x ] ; then
   exit 1
 fi
 
-cd ~/IdeaProjects/web-ui-components
-pwd
 echo Bumping web-ui-components version to ${VERSION}
 echo WEB_UI_COMPONENTS_BRANCH: ${WEB_UI_COMPONENTS_BRANCH}
 echo WEB_UI_BRANCH: ${WEB_UI_BRANCH}
@@ -61,6 +60,6 @@ cat <<EOF
     cd ${ROOT} && \\
     git checkout ${WEB_UI_COMPONENTS_BRANCH} && git fetch --all && git reset --hard upstream/${WEB_UI_COMPONENTS_BRANCH} && rm -rf node_modules && yarn install && yarn build && \\
     npm publish && \\
-    ./web-ui.upgradeComponents.sh ${VERSION} ${WEB_UI_BRANCH}
+    cd - && ./web-ui.upgradeComponents.sh ${VERSION} ${WEB_UI_BRANCH}
 EOF
 

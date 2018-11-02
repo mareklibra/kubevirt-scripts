@@ -1,17 +1,22 @@
 How to release kubevirt/web-ui
+- upgrade web-ui-components (see web-ui-components.release.sh, resp. web-ui.upgradeComponents.sh)
+
 - Create new release
   - https://github.com/kubevirt/web-ui/releases
-  - tag: kubevirt-1.3-2
-  - title: kubevirt-1.3-2
+  - careful: check branch to base tag on
+  - tag: kubevirt-1.3-9
+  - title: kubevirt-1.3-9
   - fill change log
 
 - Upstream build
   - # git checkout master && git fetch --all && git reset --hard upstream.kubevirt/master
-  - cd ~/tmp && rm -rf web-ui && git clone https://github.com/kubevirt/web-ui.git && cd web-ui
-  - IMAGE_TAG=v1.3-5 ./push.sh
+  - # TODO: replace following "git clone" by wget of .tar.gz
+  - export VERSION=1.3-9 
+    cd ~/tmp && rm -rf web-ui && git clone https://github.com/kubevirt/web-ui.git && cd web-ui && git checkout kubevirt-${VERSION} && \
+    IMAGE_TAG=v${VERSION} ./push.sh
 
 - Downstream build
-  - ./web-ui.build.sh 1.3 5
+  - ./web-ui.build.sh 1.3 9
   - TBD: errata
 
 - Announcement

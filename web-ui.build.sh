@@ -10,8 +10,8 @@
 
 export DISTGIT=~/packaging/kubevirt-web-ui # result of rhpkg clone containers/kubevirt-web-ui
 
-export VERSION=$1
-export RELEASE=$2
+export VERSION=$1  # example: 1.3
+export RELEASE=$2  # example: 9
 export BUILD_SUFFIX=$3 # in case of multiple builds from the same release
 
 export YARN_VERSION=1.9.4 # keep in sync with distgit's Dockerfile
@@ -114,6 +114,7 @@ cd ${DISTGIT}
 backvendor upstream > rh-manifest.txt || true
 cd upstream/frontend
 yarn licenses list >> ../../rh-manifest.txt
+# TODO: licences from kubevirt/package.json
 git add ../../rh-manifest.txt
 
 # commit & push changes
@@ -123,6 +124,6 @@ rhpkg push
 
 # start build
 # docker build . -f Dockerfile.local # for debugging
-# rhpkg container-build --scratch
+rhpkg container-build --scratch
 rhpkg container-build
 
