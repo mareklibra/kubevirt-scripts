@@ -10,12 +10,13 @@
 
 export DISTGIT=~/packaging/kubevirt-web-ui # result of rhpkg clone containers/kubevirt-web-ui
 
-export VERSION=$1  # example: 1.3.0
-export RELEASE=$2  # example: 1
-export BUILD_SUFFIX=$3 # in case of multiple builds from the same release
+
+export BRANCH=$1 # cnv-1.3-rhel-7 or cnv-1.4-rhel-7  # dist-git branch
+export VERSION=$2  # example: 1.3.0
+export RELEASE=$3  # example: 1
+export BUILD_SUFFIX=$4 # in case of multiple builds from the same release
 
 export YARN_VERSION=1.9.4 # keep in sync with distgit's Dockerfile
-export BRANCH=cnv-1.3-rhel-7 # dist-git branch
 export UPSTREAM_TGZ=kubevirt-${VERSION}-${RELEASE}.tar.gz # as in https://github.com/kubevirt/web-ui/releases
 export UPSTREAM_TAG=kubevirt-${VERSION}-${RELEASE} # as in https://github.com/kubevirt/web-ui/releases
 
@@ -27,7 +28,7 @@ export YARN_OFFLINE_DIR=`mktemp -d ${TMP}/yarn-offline-XXXX`
 export FAKE_CHROMEDRIVER=${DISTGIT}/utils/fake_chromedriver.zip # simple "exit 0" wrapper
 
 function usage {
-  echo $0 [VERSION] [RELEASE] [[BUILD_SUFFIX]]
+  echo $0 [DIST_GIT_BRANCH] [VERSION] [RELEASE] [[BUILD_SUFFIX]]
 }
 
 if [ x${RELEASE} = x ] ; then
@@ -123,7 +124,7 @@ git commit -m "Bump ${VERSION}-${RELEASE}${BUILD_SUFFIX}"
 rhpkg push
 
 # start build
-# docker build . -f Dockerfile.local # for debugging
+# docker build . -f Dockerfile.local # for debugging only
 rhpkg container-build --scratch
 rhpkg container-build
 
