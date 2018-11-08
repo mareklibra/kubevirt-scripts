@@ -21,3 +21,26 @@ How to release kubevirt/web-ui
 
 - Announcement
 
+===============================
+Versioning scheme:
+
+web-ui-components: X.Y.Z-P
+  - master is released by increasing X, Y or Z
+  - -P is optional, used mostly for releasing backported fixes within version-branch
+  - Example:
+    - for web-ui "web-ui-v1.3" branch is corresponding web-ui-components "v1.3" branch
+    - web-ui v1.3 is released with web-ui-components "v0.1.7"
+    - fixes to v1.3 are further released within 0.1.7-P
+  - Example for releases:
+    - fixes for existing release (e.g. once v1.3 is out):
+      - web-ui-components.release.sh 0.1.7-1 v1.3 web-ui-v1.3
+      - where arguments:
+        - 0.1.7-1 is web-ui-components new version, the 0.1.7 stays same as for former v1.3 release
+        - v1.3 is web-ui-components branch (either master or version-branch name)
+        - web-ui-v1.3 is web-ui corresponding branch (either master or version-branch name)
+
+web-ui: kubevirt-X.Y.Z-P
+  - developed on master, fixes of released versions are backported to version-branches
+  - for v1.3 release, there's "web-ui-v1.3" branch
+  - Example:
+    - kubevirt-1.3.0-1

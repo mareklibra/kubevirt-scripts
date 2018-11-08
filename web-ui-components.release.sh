@@ -8,6 +8,7 @@ export UNIQUE=`date +%D_%T|sed 's/\//_/g'|sed 's/:/-/g'`
 export ROOT=~/tmp/web-ui-components-${UNIQUE}
 
 export WEB_UI_COMPONENTS_REPO=https://github.com/mareklibra/kubevirt-web-ui-components
+export WEB_UI_COMPONENTS_UPSTREAMREPO=https://github.com/kubevirt/web-ui-components
 export WEB_UI_COMPONENTS_GIT=${WEB_UI_COMPONENTS_REPO}.git
 
 export VERSION=$1 # example: 0.1.5
@@ -37,7 +38,7 @@ rm -rf ${ROOT}
 git clone ${WEB_UI_COMPONENTS_GIT} ${ROOT}
 
 cd ${ROOT}
-git remote add upstream https://github.com/kubevirt/web-ui-components.git
+git remote add upstream ${WEB_UI_COMPONENTS_UPSTREAMREPO}.git
 git fetch --all
 git checkout -b release-${VERSION} -t remotes/upstream/${WEB_UI_COMPONENTS_BRANCH}
 # intentionally skip "npm version" or so
@@ -47,16 +48,18 @@ git commit -m "Bump ${VERSION}"
 git push --set-upstream origin release-${VERSION}
 
 # TODO: improve following for branches
-firefox ${WEB_UI_COMPONENTS_REPO}/pull/new/release-${VERSION} &
+firefox ${WEB_UI_COMPONENTS_UPSTREAMREPO}/compare/${WEB_UI_COMPONENTS_BRANCH}...mareklibra:release-${VERSION}?expand=1 &
 
 cat <<EOF
   Once PR is merged, create new release
 
   https://github.com/kubevirt/web-ui-components/releases/new
+   - be careful about selecting branch
    - tag version: v${VERSION}
    - release title: web-ui-components-${VERSION}
 
   Then publish release via:
+    # npm login
     cd ${ROOT} && \\
     git checkout ${WEB_UI_COMPONENTS_BRANCH} && git fetch --all && git reset --hard upstream/${WEB_UI_COMPONENTS_BRANCH} && rm -rf node_modules && yarn install && yarn build && \\
     npm publish && \\

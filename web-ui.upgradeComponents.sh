@@ -33,7 +33,10 @@ git fetch --all
 git checkout -b upgradeComponents.${VERSION}.${WEB_UI_BRANCH} -t remotes/upstream/${WEB_UI_BRANCH}
 
 cd kubevirt
-yarn upgrade -P web-ui-components -E ${VERSION}
+# yarn upgrade -P web-ui-components -E ${VERSION}   # this does not work well with versino changes behind dash (0.1.7-1)
+yarn add kubevirt-web-ui-components@${VERSION}
+git diff
 git add package.json yarn.lock && git commit -m "Upgrade web-ui-components to ${VERSION}"
 git push --set-upstream origin upgradeComponents.${VERSION}.${WEB_UI_BRANCH}
 
+firefox https://github.com/kubevirt/web-ui/compare/web-ui-${WEB_UI_BRANCH}...mareklibra:upgradeComponents.${VERSION}.${WEB_UI_BRANCH}?expand=1 &
