@@ -39,4 +39,5 @@ git diff
 git add package.json yarn.lock && git commit -m "Upgrade web-ui-components to ${VERSION}"
 git push --set-upstream origin upgradeComponents.${VERSION}.${WEB_UI_BRANCH}
 
-firefox https://github.com/kubevirt/web-ui/compare/web-ui-${WEB_UI_BRANCH}...mareklibra:upgradeComponents.${VERSION}.${WEB_UI_BRANCH}?expand=1 &
+firefox https://github.com/kubevirt/web-ui/compare/${WEB_UI_BRANCH}...mareklibra:upgradeComponents.${VERSION}.${WEB_UI_BRANCH}?expand=1 &
+

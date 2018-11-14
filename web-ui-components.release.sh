@@ -18,7 +18,7 @@ export WEB_UI_BRANCH="${3:-master}"
 function usage {
   echo $0 [VERSION] [[WEB_UI_COMPONENTS_BRANCH]] [[WEB_UI_BRANCH]]
   echo example: $0 0.1.5 master master
-  echo example: $0 0.1.5 master web-ui-v1.3
+  echo example: $0 0.1.7-2 v1.3 web-ui-v1.3
 }
 
 if [ x${VERSION} = x ] ; then
@@ -54,7 +54,7 @@ cat <<EOF
   Once PR is merged, create new release
 
   https://github.com/kubevirt/web-ui-components/releases/new
-   - be careful about selecting branch
+   - be careful about selecting branch: ${WEB_UI_COMPONENTS_BRANCH}
    - tag version: v${VERSION}
    - release title: web-ui-components-${VERSION}
 
