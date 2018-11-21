@@ -4,10 +4,12 @@
 
 set -ex
 
+source ./config.sh
+echo ${GITHUB_USER_NAME}
+
 export UNIQUE=`date +%D_%T|sed 's/\//_/g'|sed 's/:/-/g'`
 export WEB_UI_ROOT=~/tmp/web-ui-${UNIQUE}
 
-export WEB_UI_REPO=https://github.com/mareklibra/web-ui
 export WEB_UI_GIT=${WEB_UI_REPO}.git
 
 export VERSION=$1
@@ -39,5 +41,5 @@ git diff
 git add package.json yarn.lock && git commit -m "Upgrade web-ui-components to ${VERSION}"
 git push --set-upstream origin upgradeComponents.${VERSION}.${WEB_UI_BRANCH}
 
-firefox https://github.com/kubevirt/web-ui/compare/${WEB_UI_BRANCH}...mareklibra:upgradeComponents.${VERSION}.${WEB_UI_BRANCH}?expand=1 &
+firefox https://github.com/kubevirt/web-ui/compare/${WEB_UI_BRANCH}...${GITHUB_USER_NAME}:upgradeComponents.${VERSION}.${WEB_UI_BRANCH}?expand=1 &
 

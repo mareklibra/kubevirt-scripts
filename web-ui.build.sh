@@ -8,8 +8,7 @@
 # - dnf install git wget yarn
 # - mkdir ~/packaging && cd ~/packaging && rhpkg clone containers/kubevirt-web-ui
 
-export DISTGIT=~/packaging/kubevirt-web-ui # result of rhpkg clone containers/kubevirt-web-ui
-
+source ./config.sh
 
 export BRANCH=$1 # cnv-1.3-rhel-7 or cnv-1.4-rhel-7  # dist-git branch
 export VERSION=$2  # example: 1.3.0

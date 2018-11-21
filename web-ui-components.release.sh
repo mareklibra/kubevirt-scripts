@@ -4,10 +4,12 @@
 
 set -ex
 
+source ./config.sh
+echo GITHUB_USER_NAME: ${GITHUB_USER_NAME}
+
 export UNIQUE=`date +%D_%T|sed 's/\//_/g'|sed 's/:/-/g'`
 export ROOT=~/tmp/web-ui-components-${UNIQUE}
 
-export WEB_UI_COMPONENTS_REPO=https://github.com/mareklibra/kubevirt-web-ui-components
 export WEB_UI_COMPONENTS_UPSTREAMREPO=https://github.com/kubevirt/web-ui-components
 export WEB_UI_COMPONENTS_GIT=${WEB_UI_COMPONENTS_REPO}.git
 
@@ -48,7 +50,7 @@ git commit -m "Bump ${VERSION}"
 git push --set-upstream origin release-${VERSION}
 
 # TODO: improve following for branches
-firefox ${WEB_UI_COMPONENTS_UPSTREAMREPO}/compare/${WEB_UI_COMPONENTS_BRANCH}...mareklibra:release-${VERSION}?expand=1 &
+firefox ${WEB_UI_COMPONENTS_UPSTREAMREPO}/compare/${WEB_UI_COMPONENTS_BRANCH}...${GITHUB_USER_NAME}:release-${VERSION}?expand=1 &
 
 cat <<EOF
   Once PR is merged, create new release
