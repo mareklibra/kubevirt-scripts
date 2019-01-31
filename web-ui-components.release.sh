@@ -63,7 +63,7 @@ cat <<EOF
   Then publish release via:
     # npm login
     cd ${ROOT} && \\
-    git checkout ${WEB_UI_COMPONENTS_BRANCH} && git fetch --all && git reset --hard upstream/${WEB_UI_COMPONENTS_BRANCH} && rm -rf node_modules && yarn install && yarn build && \\
+    git checkout origin/${WEB_UI_COMPONENTS_BRANCH} && git fetch --all && git reset --hard upstream/${WEB_UI_COMPONENTS_BRANCH} && rm -rf node_modules && yarn install && yarn build && \\
     npm publish && \\
     cd - && ./web-ui.upgradeComponents.sh ${VERSION} ${WEB_UI_BRANCH}
 EOF
