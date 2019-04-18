@@ -37,6 +37,9 @@ git checkout -b upgradeComponents.${VERSION}.${WEB_UI_BRANCH} -t remotes/upstrea
 cd kubevirt
 # yarn upgrade -P web-ui-components -E ${VERSION}   # this does not work well with versino changes behind dash (0.1.7-1)
 yarn add kubevirt-web-ui-components@${VERSION}
+rm yarn.lock
+rm -rf node_modules
+yarn install
 sed -i '/ integrity /d' yarn.lock
 git diff
 git add package.json yarn.lock && git commit -m "Upgrade web-ui-components to ${VERSION}"
