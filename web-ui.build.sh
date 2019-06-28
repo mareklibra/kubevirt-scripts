@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Downstream build of web-ui
+echo Downstream build of web-ui
 
 # prerequisities:
 # - go get github.com/release-engineering/backvendor
@@ -53,8 +53,7 @@ git rm -rf upstream
 rm -rf upstream || true # potential leftovers
 mv web-ui-kubevirt-${VERSION}-${RELEASE} upstream # dist-git web-ui sources are replaced by content of release .tgz
 echo === apply downstream patches
-sed -i "s/^GIT_TAG=.*$/GIT_TAG=${UPSTREAM_TAG}/g" upstream/build-backend.sh # sources are from .tgz, not cloned git repo
-sed -i "s/^yarn install.*$/yarn install --offline --use-yarnrc \.\/\.yarnrc/g" upstream/build-frontend.sh # helps debugging in local Docker environment
+patches/apply.sh
 git add upstream
 
 # update sources (kubevirt/web-ui npm dependencies change regularly - at least for web-ui-components)
